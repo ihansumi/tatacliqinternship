@@ -21,11 +21,11 @@ LoginPage loginpageobj;
 		loginpageobj=new LoginPage(driver);				
 	}
 	
-	@AfterClass
+	/*@AfterClass
 	public void tearDown() 
 	{  
 	  driver.quit(); 
-	}
+	}*/
 	
 	@Test(priority=1)
     public void verifyTataCliqHomePageElements_01() 
@@ -100,8 +100,7 @@ LoginPage loginpageobj;
 	    System.out.println("Product added to bag and navigated to cart successfully.");
 	   
 	}
-	
-	
+		
 	@Test(priority = 8, dependsOnMethods = {"verifyAddToBag_07"})
 	public void verifyRemoveFromCart_08() {
 	    loginpageobj.removeItemFromCart();
@@ -112,7 +111,34 @@ LoginPage loginpageobj;
 	    System.out.println("Verified: Cart is empty after removal.");
 
 	}
+	@Test(priority = 9)
+	public void verifyContinueShoppingRedirectsToHomePage_09() {
+		loginpageobj.clickContinueShopping();
+        Assert.assertTrue(loginpageobj.isHomePageTitleCorrect(), "Home page title is incorrect!");
+	}
+	
+	@Test(priority = 10)
+	public void verifyCliqCareNavigation_10() {
+	    loginpageobj.clickCliqCare();
+	    Assert.assertTrue(loginpageobj.isCliqCareUrlLoaded(), "CLiQ Care page URL does not contain 'cliq-care'");
+	    System.out.println("CLiQ Care page is successfully loaded!");
+	}
+	
+	@Test(priority = 11)
+	public void verifyTataPayLaterFeedbackFlow_11() {
+	    
+		loginpageobj.clickPaymentsLink();
+		loginpageobj.clickTataPayLaterQuestion();
 
+	    Assert.assertTrue(loginpageobj.isWasThisHelpfulVisible(), "'Was this helpful?' label not displayed");
+
+	    loginpageobj.clickYesFeedback();
+
+	    Assert.assertTrue(loginpageobj.isThankYouDisplayed(), "'Thank you' header not displayed");
+	    Assert.assertTrue(loginpageobj.isThankYouMessageDisplayed(), "'Thank you message' not displayed");
+
+	    System.out.println("Tata Pay Later FAQ feedback flow verified successfully.");
+	}
 
 
 }

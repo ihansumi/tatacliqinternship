@@ -2,7 +2,7 @@ package org.tatacliq.pages;
 
 import java.time.Duration;
 import org.openqa.selenium.TimeoutException;
-
+import org.openqa.selenium.By;
 import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
@@ -18,10 +18,12 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class LoginPage {
 
     WebDriver driver;
-
-    // Constructor to initialize PageFactory elements
+    WebDriverWait wait;
+    
+    // Constructor
     public LoginPage(WebDriver driver) {
         this.driver = driver;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         PageFactory.initElements(driver, this);
     }
 
@@ -62,6 +64,31 @@ public class LoginPage {
     @FindBy(xpath = "//div[contains(text(), 'Your bag is empty!')]")
     private WebElement emptyCartMessage;
     
+    @FindBy(xpath = "//div[@class='Button__base' and .//span[text()='Continue Shopping']]")
+    private WebElement continueShoppingBtn;
+    
+    @FindBy(xpath = "//div[@role='button' and text()='CLiQ Care']")
+    private WebElement cliqCareBtn;
+    
+    
+    
+    @FindBy(xpath = "//div[text()='Payments']")
+    private WebElement paymentsLink;
+
+    @FindBy(xpath = "//div[text()='What is Tata Pay Later?']")
+    private WebElement tataPayLaterFaq;
+
+    @FindBy(xpath = "//div[@class='CustomerIssue__feedBackHeader' and text()='Was this helpful?']")
+    private WebElement wasThisHelpfulLabel;
+
+    @FindBy(xpath = "//span[text()='Yes']/ancestor::div[@role='button']")
+    private WebElement yesButton;
+
+    @FindBy(xpath = "//div[@class='CustomerIssue__feedBackHeader' and text()='Thank you']")
+    private WebElement thankYouHeader;
+
+    @FindBy(xpath = "//div[@class='CustomerIssue__feedBackContent' and contains(text(),'for your valuable feedback')]")
+    private WebElement thankYouMessage;
 
     // ==== METHODS ====
     public String getHomePageTitle() {
@@ -231,6 +258,51 @@ public class LoginPage {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOf(emptyCartMessage));
         return emptyCartMessage.isDisplayed();
+    }
+    
+    // Method to click
+    public void clickContinueShopping() {
+        wait.until(ExpectedConditions.elementToBeClickable(continueShoppingBtn)).click();
+    }
+
+    public boolean isHomePageTitleCorrect() {
+        return wait.until(ExpectedConditions.titleContains("Tata CLiQ"));
+    }
+    
+    // Click method for CLiQ Care
+    public void clickCliqCare() {
+        wait.until(ExpectedConditions.elementToBeClickable(cliqCareBtn)).click();
+    }
+
+    // Verification method for URL
+    public boolean isCliqCareUrlLoaded() {
+        return wait.until(ExpectedConditions.urlContains("cliq-care"));
+    }
+    
+    
+    
+    public void clickPaymentsLink() {
+        wait.until(ExpectedConditions.elementToBeClickable(paymentsLink)).click();
+    }
+
+    public void clickTataPayLaterQuestion() {
+        wait.until(ExpectedConditions.elementToBeClickable(tataPayLaterFaq)).click();
+    }
+
+    public boolean isWasThisHelpfulVisible() {
+        return wait.until(ExpectedConditions.visibilityOf(wasThisHelpfulLabel)).isDisplayed();
+    }
+
+    public void clickYesFeedback() {
+        wait.until(ExpectedConditions.elementToBeClickable(yesButton)).click();
+    }
+
+    public boolean isThankYouDisplayed() {
+        return wait.until(ExpectedConditions.visibilityOf(thankYouHeader)).isDisplayed();
+    }
+
+    public boolean isThankYouMessageDisplayed() {
+        return wait.until(ExpectedConditions.visibilityOf(thankYouMessage)).isDisplayed();
     }
 }
 
