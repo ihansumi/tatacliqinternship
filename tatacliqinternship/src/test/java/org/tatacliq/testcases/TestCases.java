@@ -38,21 +38,29 @@ LoginPage loginpageobj;
         Assert.assertTrue(title.contains("Tata CLiQ"), "Homepage title does not contain 'Tata CLiQ'");
     }
 	@Test(priority=2)
-	public void verifyCategoryElement_02() {
+	public void verifyCategoryElement_02() 
+	{
 		String act_text=loginpageobj.verifyCategoryElement();
 		Assert.assertEquals(act_text, Constants.Expected_text);
 		loginpageobj.clickCategory();
 	}
+
 	@Test(priority=3)
-	public void verifyGadgetmenu_03() {
+	public void verifyGadgetmenu_03() 
+	{
 		String actual_gadtext=loginpageobj.verifyGadgetsbutton();
 		Assert.assertEquals(actual_gadtext, Constants.Expected_gadtext);
 		loginpageobj.gadbuttonClick();
 	}
+	
+	
 	@Test(priority=4)
-	public void verifyElectronicsTitle_04() {
+	public void verifyElectronicsTitle_04() 
+	{
 		Assert.assertTrue(loginpageobj.isElectronicsTitleDisplayed(), "Title not displayed");
 	}
+	
+	
 	@Test(priority=5)
 	public void searchAppleProduct_05() 
 	{
@@ -69,14 +77,16 @@ LoginPage loginpageobj;
 	    System.out.println("Verified page title: " + actualTitle);
 	}
 	
+	
 	@Test(priority = 6, dependsOnMethods = {"searchAppleProduct_05"})
-	public void verifyProductPrice_06() {	
+	public void verifyProductPrice_06() 
+	{	
 		
 		String actualPrice = loginpageobj.verifyPrice();	    
 	    Assert.assertEquals(actualPrice, Constants.expected_Price);
 	    System.out.println("Product price verified successfully: " + actualPrice);
 	}
-	
+
 	@Test(priority = 7, dependsOnMethods = {"searchAppleProduct_05"})
 	public void verifyAddToBag_07() {
 	    loginpageobj.clickAddToBag();
@@ -90,6 +100,8 @@ LoginPage loginpageobj;
 	    System.out.println("Product added to bag and navigated to cart successfully.");
 	   
 	}
+	
+	
 	@Test(priority = 8, dependsOnMethods = {"verifyAddToBag_07"})
 	public void verifyRemoveFromCart_08() {
 	    loginpageobj.removeItemFromCart();
@@ -100,8 +112,10 @@ LoginPage loginpageobj;
 	    System.out.println("Verified: Cart is empty after removal.");
 
 	}
-	
-	}
+
+
+
+}
 	
 	
 	

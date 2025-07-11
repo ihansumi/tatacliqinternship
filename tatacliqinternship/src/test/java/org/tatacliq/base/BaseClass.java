@@ -17,7 +17,7 @@ public class BaseClass {
 	
 	public void propload() throws IOException  {
 		
-		FileInputStream propobj=new FileInputStream("D:\\ICTAK_SW_TESTING_COURSE\\Internship_ICTAK\\OrangeHrm_Internship\\amazoninternship\\src\\test\\resources\\config.properties");
+		FileInputStream propobj=new FileInputStream("src\\test\\resources\\config.properties");
 		prop=new Properties();
 		prop.load(propobj);
 	}
